@@ -3,9 +3,7 @@
 # Table name: holidays
 #
 #  id         :integer          not null, primary key
-#  year       :integer          not null
-#  month      :integer          not null
-#  day        :integer          not null
+#  date       :date             not null
 #  reason     :string           not null
 #  country    :string
 #  created_at :datetime         not null
@@ -21,16 +19,8 @@ RSpec.describe Holiday, type: :model do
     it 'should be valid factory instance' do
       expect(holiday).to be_valid
     end
-    it 'should require year' do
-      holiday.year = nil
-      expect(holiday).not_to be_valid
-    end
-    it 'should require month' do
-      holiday.month = nil
-      expect(holiday).not_to be_valid
-    end
-    it 'should require day' do
-      holiday.day = nil
+    it 'should require date' do
+      holiday.date = nil
       expect(holiday).not_to be_valid
     end
     it 'should require reason' do
@@ -40,12 +30,17 @@ RSpec.describe Holiday, type: :model do
   end
 
   describe 'methods' do
-    it 'should set value' do
-      target = Holiday.new
-      target.set_holiday(Time.new(2018, 1, 1), '元旦')
-      expect(target.year).to eq(2018)
-      expect(target.reason).to eq('元旦')
-      expect(target.country).to eq('jp')
+    it 'should return true, if exists' do
+      target = Holiday.new(date: Date.new(2018, 1, 1), reason: '元旦')
+      target.save
+      stored = Holiday.exists?(date: Date.new(2018, 1, 1))
+      expect(stored).to be_truthy
+    end
+
+
+    it 'should return false, if not exists' do
+      stored = Holiday.exists?(date: Date.new(2018, 2, 14))
+      expect(stored).to be_falsey
     end
   end
 end

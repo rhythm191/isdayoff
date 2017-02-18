@@ -1,33 +1,33 @@
 # json response
 
 class Dayoff
-  attr_accessor :day, :holiday
+  attr_accessor :day, :dayoff
 
   def initialize(time)
     @time = time
     @reason = ''
-    @holiday = isHoliday(time)
+    @dayoff = dayoff?(time)
   end
 
-  def isHoliday(time)
+  def dayoff?(time)
     if time.saturday?
       @reason = 'Saturday'
-      @holiday = true
+      @dayoff = true
       return true
     elsif time.sunday?
       @reason = 'Sunday'
-      @holiday = true
+      @dayoff = true
       return true
     end
 
 
     if @@holidays.include?(time)
       @reason = '祝日'
-      @holiday = true
+      @dayoff = true
       return true
     end
 
-    @holiday = false
+    @dayoff = false
     return false
   end
 

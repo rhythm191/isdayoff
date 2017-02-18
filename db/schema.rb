@@ -13,9 +13,7 @@
 ActiveRecord::Schema.define(version: 20170213121300) do
 
   create_table "holidays", force: :cascade do |t|
-    t.integer  "year",       null: false
-    t.integer  "month",      null: false
-    t.integer  "day",        null: false
+    t.date     "date",       null: false
     t.string   "reason",     null: false
     t.string   "country"
     t.datetime "created_at", null: false

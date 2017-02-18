@@ -33,7 +33,8 @@ RSpec.describe Holiday, type: :model do
     it 'should return true, if exists' do
       target = Holiday.new(date: Date.new(2018, 1, 1), reason: '元旦')
       target.save
-      stored = Holiday.exists?(date: Date.new(2018, 1, 1))
+      stored = target.existed?
+
       expect(stored).to be_truthy
     end
 

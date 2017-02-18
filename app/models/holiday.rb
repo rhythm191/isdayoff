@@ -15,6 +15,10 @@ class Holiday < ApplicationRecord
   validates :date, presence: true
   validates :reason, presence: true
 
+  def existed?
+    Holiday.find_by_date(date).present?
+  end
+
   # 時間からHolidayインスタンスを取得する
   # @param [Time] time
   def self.find_by_time(time)

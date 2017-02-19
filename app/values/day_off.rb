@@ -11,7 +11,7 @@ class DayOff
   # 時間から休日かどうかを判断してフィールドにセットする
   # @param [Time] time
   def set_dayoff(time)
-    @reason = '祝日'
+    @reason = ''
     @day_off = false
 
     if time.saturday?

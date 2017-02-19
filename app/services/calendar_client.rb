@@ -4,7 +4,7 @@ class CalendarClient
 
   def initialize
     @service = Google::Apis::CalendarV3::CalendarService.new
-    @service.client_options.application_name = "isDayoff"
+    @service.client_options.application_name = "IsDayOff"
     @service.key = Rails.application.secrets.calendar_key
   end
 

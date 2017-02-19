@@ -28,7 +28,7 @@ module Isdayoff
     config.api_only = true
 
     # active job
-    config.active_job.queue_adapter = :delayed_job
+    config.active_job.queue_adapter = :sucker_punch
 
     config.generators do |g|
       g.test_framework :rspec, view_specs: false, helper_specs: false, fixture: true

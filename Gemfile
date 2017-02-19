@@ -49,4 +49,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'google-api-client'
 
-gem 'delayed_job_active_record'
+gem 'sucker_punch'

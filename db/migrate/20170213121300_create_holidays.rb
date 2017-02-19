@@ -6,6 +6,8 @@ class CreateHolidays < ActiveRecord::Migration[5.0]
       t.string :country
 
       t.timestamps
+
+      add_index :holidays, :date, unique: true
     end
   end
 end

@@ -4,9 +4,6 @@ class DayoffController < ApplicationController
   def today
     dayoff = Dayoff.new(Time.now)
 
-    client = CalendarClient.new
-    client.list('japanese__ja@holiday.calendar.google.com')
-
     render json: dayoff
   end
 
@@ -18,9 +15,8 @@ class DayoffController < ApplicationController
   end
 
   def get_holiday
-    # time = Time.parse(params['date'])
-    start_time = Time.now
-    end_time = Time.now + 1.years
+    start_time = params['date'].nil? ? Time.now : Time.parse(params['date'])
+    end_time = start_time + 1.years + 6.months
     GetHolidayJob.perform_later(start_time.to_i, end_time.to_i)
 
     render plain: 'ok'

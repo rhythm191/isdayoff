@@ -3,14 +3,19 @@ require 'date'
 class DayOffController < ApplicationController
   def today
     day_off = DayOff.new(Time.now)
-
     render json: day_off
   end
 
   def is
     date = Date.strptime(params[:day],'%Y-%m-%d')
-    day_off = DayOff.new(date.to_time)
 
+    # 現在から1年前後でなければOutOfRangeExceptionをだす
+    time_range = (Time.now - 1.years)..(Time.now + 1.years)
+    unless time_range.include? date.to_time
+      render json: {exception: 'OutOfRangeException' }, status: :bad_request and return
+    end
+
+    day_off = DayOff.new(date.to_time)
     render json: day_off
   end
 

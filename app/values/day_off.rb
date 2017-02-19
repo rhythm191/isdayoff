@@ -1,53 +1,35 @@
-# json response
-
+# 日付が休日かどうかを管理するクラス.
 class DayOff
-  attr_accessor :day, :day_off
+  attr_accessor :time, :day_off, :reason
 
   def initialize(time)
     @time = time
-    @reason = ''
-    @day_off = dayoff?(time)
+    set_dayoff(time)
   end
 
-  def dayoff?(time)
+  private
+  # 時間から休日かどうかを判断してフィールドにセットする
+  # @param [Time] time
+  def set_dayoff(time)
+    @reason = '祝日'
+    @day_off = false
+
     if time.saturday?
       @reason = 'Saturday'
       @day_off = true
-      return true
+      return
     elsif time.sunday?
       @reason = 'Sunday'
       @day_off = true
-      return true
+      return
     end
 
-
-    if @@holidays.include?(time)
-      @reason = '祝日'
+    # holidays tableをみて祝日でないかを判断する
+    holiday = Holiday.find_by_time(time)
+    if holiday
+      @reason = holiday.reason
       @day_off = true
-      return true
+      return
     end
-
-    @day_off = false
-    return false
   end
-
-
-  @@holidays = [
-        Date.new(2017, 1, 1),
-        Date.new(2017, 1, 9),
-        Date.new(2017, 2, 11),
-        Date.new(2017, 3, 20),
-        Date.new(2017, 4, 29),
-        Date.new(2017, 5, 3),
-        Date.new(2017, 5, 4),
-        Date.new(2017, 5, 5),
-        Date.new(2017, 7, 17),
-        Date.new(2017, 8, 11),
-        Date.new(2017, 9, 18),
-        Date.new(2017, 9, 23),
-        Date.new(2017, 10, 19),
-        Date.new(2017, 11, 3),
-        Date.new(2017, 11, 23),
-        Date.new(2017, 12, 23)
-    ]
 end

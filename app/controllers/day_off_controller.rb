@@ -1,17 +1,17 @@
 require 'date'
 
-class DayoffController < ApplicationController
+class DayOffController < ApplicationController
   def today
-    dayoff = Dayoff.new(Time.now)
+    day_off = DayOff.new(Time.now)
 
-    render json: dayoff
+    render json: day_off
   end
 
   def is
     date = Date.strptime(params[:day],'%Y-%m-%d')
-    dayoff = Dayoff.new(date.to_time)
+    day_off = DayOff.new(date.to_time)
 
-    render json: dayoff
+    render json: day_off
   end
 
   def get_holiday

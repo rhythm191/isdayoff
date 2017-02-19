@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  get 'today', to: 'dayoff#today'
-  get ':day', to: 'dayoff#is'
+  get 'today', to: 'day_off#today'
+  get ':day', to: 'day_off#is'
 
-  get 'holiday/:date', to: 'dayoff#get_holiday'
+  get 'holiday/:date', to: 'day_off#get_holiday'
 
-  root to: 'deyoff#today'
+  root to: 'day_off#today'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

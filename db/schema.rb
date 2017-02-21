@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213121300) do
+ActiveRecord::Schema.define(version: 20170220121442) do
 
   create_table "holidays", force: :cascade do |t|
     t.date     "date",       null: false
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 20170213121300) do
     t.string   "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "locale"
+    t.index ["date", "country", "locale"], name: "index_holidays_on_date_and_country_and_locale"
     t.index ["date"], name: "index_holidays_on_date", unique: true
   end
 

@@ -2,11 +2,14 @@ require 'date'
 
 class DayOffController < ApplicationController
   def today
-    day_off = DayOff.new(Time.now)
+    day_off = DayOff.new(Time.now, get_country, I18n.locale)
+
     render json: day_off
   end
 
   def is
+    country =
+
     date = Date.strptime(params[:day],'%Y-%m-%d')
 
     # 現在から1年前後でなければOutOfRangeExceptionをだす
@@ -15,7 +18,7 @@ class DayOffController < ApplicationController
       render json: {exception: 'OutOfRangeException' }, status: :bad_request and return
     end
 
-    day_off = DayOff.new(date.to_time)
+    day_off = DayOff.new(date.to_time, get_country, I18n.locale)
     render json: day_off
   end
 
@@ -25,5 +28,10 @@ class DayOffController < ApplicationController
     GetHolidayJob.perform_later(start_time.to_i, end_time.to_i)
 
     render plain: 'ok'
+  end
+
+  private
+  def get_country
+    params['country'] || 'japanese'
   end
 end

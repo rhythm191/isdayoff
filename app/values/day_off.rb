@@ -2,30 +2,33 @@
 class DayOff
   attr_accessor :time, :day_off, :reason
 
-  def initialize(time)
+  def initialize(time, country='japanese', locale='en')
     @time = time
-    set_dayoff(time)
+    @country = country
+    set_dayoff(time, country, locale)
   end
 
   private
   # 時間から休日かどうかを判断してフィールドにセットする
   # @param [Time] time
-  def set_dayoff(time)
+  # @param [String] country
+  # @param [String] locale
+  def set_dayoff(time, country, locale)
     @reason = ''
     @day_off = false
 
     if time.saturday?
-      @reason = 'Saturday'
+      @reason = I18n.t('Saturday')
       @day_off = true
       return
     elsif time.sunday?
-      @reason = 'Sunday'
+      @reason = I18n.t('Sunday')
       @day_off = true
       return
     end
 
     # holidays tableをみて祝日でないかを判断する
-    holiday = Holiday.find_by_time(time)
+    holiday = Holiday.find_by_time(time, country, locale)
     if holiday
       @reason = holiday.reason
       @day_off = true

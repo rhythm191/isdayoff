@@ -8,10 +8,12 @@
 #  country    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  locale     :string
 #
 # Indexes
 #
-#  index_holidays_on_date  (date) UNIQUE
+#  index_holidays_on_date                         (date) UNIQUE
+#  index_holidays_on_date_and_country_and_locale  (date,country,locale)
 #
 
 FactoryGirl.define do

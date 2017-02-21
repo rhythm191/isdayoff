@@ -31,7 +31,27 @@ class CalendarClient
   # @return [Holiday] holidayのリスト
   def list_holiday(calendar_id, start_time = Time.now, end_time = (Time.now + 1.year), limit= 30)
     list_events(calendar_id, start_time, end_time, limit).items.map do |item|
-      Holiday.new(date: Date.parse(item.start.date), reason: item.summary)
+      Holiday.new(
+          date: Date.parse(item.start.date),
+          reason: item.summary,
+          country: country(calendar_id),
+          locale: locale(calendar_id))
     end
+  end
+
+  # calendar_id から country を返す
+  # @param [String] calendar_id
+  # @return [String] country
+  def country(calendar_id)
+    calendar_id =~ /^([^_@]+).*/
+    $1
+  end
+
+  # calendar_id から locale を返す
+  # @param [String] calendar_id
+  # @return [String] locale
+  def locale(calendar_id)
+    calendar_id =~ /^([^_]+)__([^@]+)@.+/
+    $2 || 'en'
   end
 end

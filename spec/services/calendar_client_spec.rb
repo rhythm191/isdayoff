@@ -18,4 +18,15 @@ describe 'CalendarClient' do
     expect(holidays[0].reason).to eq '元日'
     expect(holidays[0].date.to_s).to eq '2018-01-01'
   end
+
+  it 'should return country name' do
+    expect(client.country(holiday_cal)).to eq 'japanese'
+    expect(client.country('usa_ja@holiday.calendar.google.com')).to eq 'usa'
+  end
+
+  it 'should return locale name' do
+    expect(client.locale(holiday_cal)).to eq 'ja'
+    expect(client.locale('usa@holiday.calendar.google.com')).to eq 'en'
+    expect(client.locale('japanese__en@holiday.calendar.google.com')).to eq 'en'
+  end
 end

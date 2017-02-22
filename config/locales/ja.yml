@@ -22,4 +22,7 @@
 ja:
   Saturday: "土曜日"
   Sunday: "日曜日"
+  error:
+    outofrange:
+      description: "前後1年以内を指定してください"
 

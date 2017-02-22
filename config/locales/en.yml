@@ -22,3 +22,6 @@
 en:
   Saturday: "Saturday"
   Sunday: "Sunday"
+  error:
+    outofrange:
+      description: "It can find around 1 year"

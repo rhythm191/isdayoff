@@ -3,11 +3,21 @@ namespace :holiday do
   task :get_list, [:date] => :environment do |task, args|
     start_time = args['date'] ? Time.parse(args['date']) : Time.now
     end_time = start_time + 1.years + 6.months
-    GetHolidayJob.perform_later(start_time.to_i, end_time.to_i)
+    puts "get holiday #{start_time} -> #{end_time}"
+
+    client = CalendarClient.new
+    Calendar.all.select(:calendar_id).each do |calendar_id|
+      client.list_holiday(calendar_id, start_time, end_time).each do |holiday|
+        unless holiday.existed?
+          puts "new create #{holiday.reason}(#{holiday.date})"
+          holiday.save
+        end
+      end
+    end
   end
 
   desc 'clean holiday datas'
   task :clean => :environment do
-    CleanupHolidayJob.perform_later
+    Holiday.where('date <= ?', 10.years.ago).destroy_all
   end
 end

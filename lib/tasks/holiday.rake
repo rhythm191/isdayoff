@@ -6,10 +6,12 @@ namespace :holiday do
     puts "get holiday #{start_time} -> #{end_time}"
 
     client = CalendarClient.new
-    Calendar.all.select(:calendar_id).each do |calendar_id|
-      client.list_holiday(calendar_id, start_time, end_time).each do |holiday|
+    Calendar.all.select(:calendar_id).each do |calendar|
+      puts calendar.calendar_id
+
+      client.list_holiday(calendar.calendar_id, start_time, end_time).each do |holiday|
         unless holiday.existed?
-          puts "new create #{holiday.reason}(#{holiday.date})"
+          puts "new create  #{holiday.reason}(#{holiday.date})"
           holiday.save
         end
       end

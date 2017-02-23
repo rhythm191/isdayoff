@@ -12,7 +12,6 @@
 #
 # Indexes
 #
-#  index_holidays_on_date                         (date) UNIQUE
 #  index_holidays_on_date_and_country_and_locale  (date,country,locale)
 #
 
@@ -22,7 +21,7 @@ class Holiday < ApplicationRecord
   validates :reason, presence: true
 
   def existed?
-    Holiday.find_by_date(date).present?
+    Holiday.find_by(date: date, country: country, locale: locale).present?
   end
 
   # 時間からHolidayインスタンスを取得する

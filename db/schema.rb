@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220121442) do
+ActiveRecord::Schema.define(version: 20170222124017) do
+
+  create_table "calendars", force: :cascade do |t|
+    t.string   "country",     null: false
+    t.string   "locale",      null: false
+    t.string   "calendar_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["country", "locale"], name: "index_calendars_on_country_and_locale", unique: true
+  end
 
   create_table "holidays", force: :cascade do |t|
     t.date     "date",       null: false
@@ -20,7 +29,6 @@ ActiveRecord::Schema.define(version: 20170220121442) do
     t.datetime "updated_at", null: false
     t.string   "locale"
     t.index ["date", "country", "locale"], name: "index_holidays_on_date_and_country_and_locale"
-    t.index ["date"], name: "index_holidays_on_date", unique: true
   end
 
 end

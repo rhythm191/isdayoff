@@ -25,3 +25,5 @@ en:
   error:
     outofrange:
       description: "It can find around 1 year"
+    unused:
+      description: "It cannot used set of country and locale(look at /countries)"

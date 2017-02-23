@@ -3,6 +3,7 @@ require 'date'
 class DayOffController < ApplicationController
 
   before_action :bad_request_if_out_of_range, only: :is
+  before_action :bad_request_if_unused_country
 
   def today
     day_off = DayOff.new(Time.now, get_country, I18n.locale)
@@ -22,6 +23,12 @@ class DayOffController < ApplicationController
 
   def get_country
     params['country'] || 'japanese'
+  end
+
+  def bad_request_if_unused_country
+    unless Calendar.where(country: get_country, locale: I18n.locale).exists?
+      render json: {exception: 'UnusedException', description: I18n.t('error.unused.description') }, status: :bad_request
+    end
   end
 
   # 現在から1年前後でなければOutOfRangeExceptionをだす

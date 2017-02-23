@@ -18,7 +18,7 @@
 FactoryGirl.define do
   factory :calendar do
     country 'japanese'
-    locale 'ja'
+    locale 'en'
     calendar_id 'japanese__ja@holiday.calendar.google.com'
   end
 end

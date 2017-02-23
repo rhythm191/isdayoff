@@ -25,4 +25,6 @@ ja:
   error:
     outofrange:
       description: "前後1年以内を指定してください"
+    unused:
+      description: "取り扱っていない国と言語の組み合わせです。(/countries を参照)"
 

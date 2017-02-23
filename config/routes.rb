@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'countries', to: 'calendars#countries'
+
   get 'today', to: 'day_off#today'
   get ':day', to: 'day_off#is'
 

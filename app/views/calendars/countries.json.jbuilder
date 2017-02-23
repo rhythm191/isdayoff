@@ -1,0 +1,1 @@
+json.array! @calendars, :country, :locale

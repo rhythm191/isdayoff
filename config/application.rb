@@ -27,7 +27,5 @@ module IsDayOff
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    # active job
-    config.active_job.queue_adapter = :sucker_punch
   end
 end

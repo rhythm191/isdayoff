@@ -2,7 +2,9 @@
 
 休日かどうかを返すAPI.
 
-https://dayoff.herokuapp.com
+アップデートするのが面倒になってクローズしました。ごめんね。m( _ _)m
+
+~~https://dayoff.herokuapp.com~~
 
 ## API
 
